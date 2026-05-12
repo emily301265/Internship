@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Calculator</title>
+    <style>
+        .container {
+            width: 800px;
+            height: 500px;
+            background-color: whitesmoke;
+            margin-top: 100px;
+            margin-left: 350px;
+            border: 1px solid black;
+            border-radius: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .signs {
+            padding-left: 95px;
+            padding-top: 20px;
+        }
+
+        input {
+            width: 250px;
+            height: 70px;
+            border-radius: 10px;
+            border: 1px solid grey;
+            padding: auto;
+            font-size: 40px;
+            margin-left: 10px;
+        }
+
+        select {
+            width: 50px;
+            height: 55px;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+
+        .btn {
+            margin-left: 100px;
+            background-color: rgb(0, 123, 255);
+            border-radius: 10px;
+            width: 600px;
+            height: 55px;
+            margin-top: 30px;
+            color: white;
+            border: 1px solid rgb(0, 123, 255);
+            font-size: 25px;
+        }
+
+        .output {
+            width: 600px;
+            height: 70px;
+            align-items: center;
+            margin-left: 100px;
+            margin-top: 30px;
+            border: 1px solid grey;
+            padding: auto;
+            padding-top: 25px;
+            background-color: white;
+            font-size: 40px;
+            border-radius: 10px;
+
+        }
+
+        .result-label {
+            padding-left: 30px;
+        }
+
+        .result-value {
+            padding-left: 250px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div>
+            <h1>Mini Calculator</h1>
+        </div>
+
+        <div class="signs">
+            <input type="number" id="inputnum1">
+            <select id="operation">
+                <option>+</option>
+                <option>-</option>
+                <option>*</option>
+                <option>/</option>
+            </select>
+            <input type="number" id="inputnum2">
+        </div>
+
+        <div>
+            <button type="button" class="btn" id="butt">Calculate Amount</button>
+        </div>
+
+        <div class="output">
+            <span class="result-label">Result:</span>
+            <span id="display-result" class="result-value"></span>
+        </div>
+    </div>
+</body>
+
+ <script>
+        const num1 = document.getElementById('inputnum1');
+        const num2 = document.getElementById('inputnum2');
+        const operation = document.getElementById('operation');
+        const btn = document.getElementById('butt');
+        const result = document.getElementById('display-result');
+
+
+        btn.addEventListener('click', function () {
+
+            let value1 = Number(num1.value);
+            let value2 = Number(num2.value);
+            let operator = operation.value;
+
+            let answer;
+
+            switch (operator) {
+
+                case "+":
+                    answer =value1 + value2;
+                    break;
+
+                case "-":
+                    answer = value1 - value2;
+                    break;
+
+                case "*":
+                    answer = value1 * value2;
+                    break;
+
+                case "/":
+                    if (value2 === 0) {
+                        answer = "Cannot divide by 0";
+                    } else {
+                        answer = value1 / value2;
+                    }
+                    break;
+
+                default:
+                    answer = "Invalid Operation";
+            }
+
+            result.textContent = parseFloat((answer) .toFixed(3));
+
+        });
+
+    </script>
+
+</html>
