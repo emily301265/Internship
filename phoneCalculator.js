@@ -5,7 +5,7 @@ function getNumber(data) {
   let input = data.innerText;
 
   // operators list
-  let operators = ["%", "/", "*", "-","+" , "="];
+  let operators = ["%", "/", "*", "-","+" , "=".""];
 
   // last character
   let lastChar = temp[temp.length - 1];
