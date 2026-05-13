@@ -4,9 +4,33 @@ let temp = ""; //0
 function getNumber(data) {
   let input = data.innerText;
 
+  // operators list
+  let operators = ["%", "/", "*", "-","+" , "="];
+
+  // last character
+  let lastChar = temp[temp.length - 1];
+
+  if (operators.includes(input) && operators.includes(lastChar)) {
+    return;
+  }
+
   if (input == "=") {
-    result.innerHTML = eval(temp); //4+6
-    temp = eval(temp);
+
+    // divide by zero check
+    if (temp.includes("/0")) {
+      result.innerText = "Can't divide by 0";
+      temp = "";
+      return;
+    }
+
+    try {
+      result.innerHTML = eval(temp);
+      temp = eval(temp).toString();
+    } catch {
+      result.innerText = "Error";
+      temp = "";
+    }
+
   } else {
     temp += input;
     result.innerText = temp;
@@ -18,11 +42,6 @@ function clearForm() {
   temp = "";
 }
 
-// function deleteForm(data){
-//     result.innerText=result.innerText.slice(0,-1)
-//     temp = "";
-
-// }
 function deleteForm() {
   temp = temp.slice(0, -1);
   result.innerText = temp || 0;

@@ -1,11 +1,175 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment3</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        margin: 20px 100px 150px 100px;
+      }
+
+      nav {
+        background-color: rgb(9, 9, 101);
+        color: white;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+      }
+
+      a {
+        color: white;
+        text-decoration: none;
+      }
+
+      .navbar {
+        display: flex;
+        gap: 30px;
+        padding-left: 790px;
+        /* position: fixed; */
+
+        /* justify-content: space-between; */
+      }
+
+      h3 {
+        width: 300px;
+        height: 30px;
+        border: 1px solid black;
+        border-radius: 5px;
+        display: flex;
+        /* text-align: center; */
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(140, 169, 193);
+      }
+
+      .feature {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin: auto;
+        margin-bottom: 15px;
+      }
+
+      .formData {
+        width: 50%;
+        /* height: 300px; */
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: rgb(235, 241, 247);
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 20px;
+        /* margin-bottom: 10px; */
+      }
+
+      .innerbox {
+        width: 65%;
+        border: 1px solid black;
+        background-color: blue;
+        color: white;
+        position: relative;
+        padding: 20px;
+      }
+
+      .outerbox {
+        width: 50%;
+        /* height: 50%; */
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: rgb(219, 209, 198);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        display: flex;
+        /* flex-direction: row; */
+        gap: 5px;
+        margin-bottom: 15px;
+      }
+
+      button {
+        background-color: blue;
+        color: white;
+        margin-left: 10px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>CSS Utility Simulator</h1>
+    <p>Change the inputs to see how atomic classes combine to build UIs</p>
+    <nav>
+      <span>MyLogo</span>
+      <div class="navbar">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+    </nav>
+    <div class="feature">
+      <h3>Feature1</h3>
+      <h3>Feature2</h3>
+      <h3>Feature3</h3>
+    </div>
+    <div class="container">
+      <section class="formData">
+        <h5>Utility Controls</h5>
+
+        <label for="padding">Padding(Spacing)</label>
+
+        <select name="paddingData" id="padding">
+          <option>Medium(p-8)</option>
+          <!-- <option value="2">Medium(p-9)</option> -->
+        </select>
+
+        <label for="themeColor">Background Theme(Color)</label>
+        <select name="themeData" id="themeColor">
+          <option value="blue">Primary Blue</option>
+          <option value="red">Red</option>
+        </select>
+
+        <label for="textSize">Text Size(Typography)</label>
+        <select name="textData" id="textSize">
+          <option value="large">Large(text:xl)</option>
+          <option value="medium">Medium(text:l)</option>
+        </select>
+
+        <label for="cornerRadius">Corner Radius(Borders)</label>
+        <select name="borderData" id="cornerRadius">
+          <option value="square1">Square(rounded:none)</option>
+          <option value="square2">Square(rounded:10px)</option>
+        </select>
+
+        <label for="shadowDepth">Shadow Depth</label>
+        <select name="shadowData" id="shadowDepth">
+          <option value="1">Medium(shadow-md)</option>
+          <option value="2">Large(shadow-lg)</option>
+        </select>
+        
+      </section>
+      <section class="outerbox">
+        <div class="innerbox">
+          <h4>Alex Walker</h4>
+          <p>
+            Full-Stack Web Developer building awesome things with Tailwind CSS
+          </p>
+        </div>
+      </section>
+    </div>
+    <button type="submit">Submit</button>
+    <button>Hover Me Slowly!</button>
+  </body>
 </html>

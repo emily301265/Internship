@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Phone Calculator</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f0f0;
+        padding: 50px 0;
+      }
+
+      .container {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border: 1px solid white;
+        background: rgb(221, 174, 174);
+        width: 260px;
+        padding: 20px 10px;
+        border-radius: 20px;
+      }
+
+      #screen {
+        text-align: right;
+        padding: 15px;
+        border: none;
+        border-radius: 10px;
+        width: 100%;
+        font-size: 24px;
+        background-color: rgba(255, 255, 255, 0.3);
+        margin-bottom: 15px;
+        outline: none;
+        color: #333;
+      }
+
+      .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+
+      button {
+        border-radius: 50%;
+        height: 45px;
+        width: 45px;
+        margin: auto;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+        background: #fff;
+        transition: 0.2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      button:active {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        justify-content: center;
+      }
+
+      .clear {
+        color: brown;
+      }
+
+      .operator {
+        color: #ff4355;
+      }
+
+      .equal {
+        background: #ff4355;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <input
+        type="text"
+        id="screen"
+        placeholder="0"
+        oninput="syncOutput(this.value)"/>
+
+      <div class="buttons">
+        <button class="clear" onclick="clearScreen()">C</button>
+        <button onclick="deleteLast()">⌫</button>
+        <button onclick="appendValue('%')">%</button>
+        <button class="operator" onclick="appendValue('/')">÷</button>
+
+        <button onclick="appendValue(7)">7</button>
+        <button onclick="appendValue(8)">8</button>
+        <button onclick="appendValue(9)">9</button>
+        <button class="operator" onclick="appendValue('*')">×</button>
+
+        <button onclick="appendValue(4)">4</button>
+        <button onclick="appendValue(5)">5</button>
+        <button onclick="appendValue(6)">6</button>
+        <button class="operator" onclick="appendValue('-')">-</button>
+
+        <button onclick="appendValue(1)">1</button>
+        <button onclick="appendValue(2)">2</button>
+        <button onclick="appendValue(3)">3</button>
+        <button class="operator" onclick="appendValue('+')">+</button>
+
+        <button onclick="appendValue('(')">(</button>
+        <button onclick="appendValue(')')">)</button>
+        <button onclick="appendValue(0)">0</button>
+        <button onclick="appendValue('.')">.</button>
+        <button class="equal" onclick="calculate()">=</button>
+      </div>
+    </div>
+
+    <script>
+      let output = "";
+      const screenElement = document.getElementById("screen");
+
+      function updateScreen() {
+        screenElement.value = output;
+      }
+
+      function syncOutput(val) {
+        output = val;
+      }
+
+      function appendValue(value) {
+        const operators = ["+", "-", "*", "/", ".", "%"];
+        if (operators.includes(value) && operators.includes(output.slice(-1)))
+          return;
+
+        let startPos = screenElement.selectionStart;
+        let endPos = screenElement.selectionEnd;
+        if (startPos !== null) {
+          output =
+            output.substring(0, startPos) +
+            value +
+            output.substring(endPos, output.length);
+          updateScreen();
+          setTimeout(() => {
+            screenElement.setSelectionRange(startPos + 1, startPos + 1);
+            screenElement.focus();
+          }, 0);
+        } else {
+          output += value;
+          updateScreen();
+        }
+      }
+
+      function clearScreen() {
+        output = "";
+        updateScreen();
+      }
+
+      function deleteLast() {
+        let startPos = screenElement.selectionStart;
+        if (startPos > 0) {
+          output = output.substring(0, startPos - 1) + output.substring(screenElement.selectionEnd, output.length);
+          updateScreen();
+          setTimeout(() => {
+            screenElement.setSelectionRange(startPos - 1, startPos - 1);
+            screenElement.focus();
+          }, 0);
+        } else {
+          output = output.slice(0, -1);
+          updateScreen();
+        }
+      }
+
+      function calculate() {
+        try {
+          let formattedInput = output
+            .replace(/(\d)(\()/g, "$1*$2")
+            .replace(/(\))(\d)/g, "$1*$2");
+
+          if (/\/0(?![.0-9])/.test(formattedInput)) {
+            output = "Cannot divide by 0";
+            updateScreen();
+            output = "";
+            return;
+          }
+
+          let result = eval(formattedInput);
+
+          if (!isFinite(result)) {
+            output = "Error";
+          } else {
+            if (Number.isInteger(result)) {
+              output = result.toString();
+            } else {
+              output = parseFloat(result.toFixed(6)).toString();
+            }
+          }
+          updateScreen();
+        } catch (e) {
+          output = "Error";
+          updateScreen();
+          output = "";
+        }
+      }
+    </script>
+  </body>
+</html>
